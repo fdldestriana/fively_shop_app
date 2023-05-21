@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "979665319816",
+    "project_id": "fively-ecommerce",
+    "storage_bucket": "fively-ecommerce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979665319816:android:1bb1adab4454880d47ac3d",
+        "android_client_info": {
+          "package_name": "com.example.fively"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "979665319816-cloj67bpg0n9t04b6b4cnj865qtfctfe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fively",
+            "certificate_hash": "d1772871650e2a99a557479bdf86315bf432f63a"
+          }
+        },
+        {
+          "client_id": "979665319816-cnp6tb7q2qt6etrsk4cv1n5d72894tqh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCmZGLDaxm0V5HuGd4jblpmAxxG9_oZVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "979665319816-a4utgqfjgct017finb4tiu50ncmek098.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "979665319816-igub4rhuo1r2s1qa5862a705qegi1a2q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fivelyEcommerce"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979665319816:android:6dd04162ed1bae4347ac3d",
+        "android_client_info": {
+          "package_name": "com.example.fively_ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "979665319816-tanjs6vcqq5jklhmml4sr9qm0skfggg9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fively_ecommerce",
+            "certificate_hash": "d1772871650e2a99a557479bdf86315bf432f63a"
+          }
+        },
+        {
+          "client_id": "979665319816-cnp6tb7q2qt6etrsk4cv1n5d72894tqh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCmZGLDaxm0V5HuGd4jblpmAxxG9_oZVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "979665319816-a4utgqfjgct017finb4tiu50ncmek098.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "979665319816-igub4rhuo1r2s1qa5862a705qegi1a2q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fivelyEcommerce"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
