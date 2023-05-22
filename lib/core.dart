@@ -27,6 +27,7 @@ export 'package:fively/shared/widget/re_name_field.dart';
 export 'package:fively/shared/widget/re_password_field.dart';
 export 'package:fively/shared/widget/re_circle_avatar.dart';
 export 'package:fively/shared/widget/re_photo_picker.dart';
+export 'package:fively/shared/function/re_show_error_dialog.dart';
 export 'state_util.dart';
 export 'package:fively/utils/color_lib.dart';
 export 'package:fively/utils/failure.dart';

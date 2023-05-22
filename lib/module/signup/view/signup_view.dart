@@ -33,37 +33,23 @@ class SignupView extends StatefulWidget {
                     height: Get.height * 0.02,
                   ),
                   Center(
-                    child: RePhotoPicker(() {}
-                        // () async {
-                        //   try {
-                        //     FilePickerResult? filePickerResult =
-                        //         await FilePicker.platform.pickFiles(
-                        //       allowMultiple: false,
-                        //       allowedExtensions: ['png', 'jpg'],
-                        //       type: FileType.custom,
-                        //     );
-                        //     controller.file = File(
-                        //         filePickerResult?.files.single.path as String);
-                        //     controller.fileName =
-                        //         filePickerResult?.files.single.name;
-                        //   } on Exception catch (e) {
-                        //     showErrorDialog(context, e.toString());
-                        //   }
-                        // },
-                        ),
+                    child: RePhotoPicker(
+                      file: controller.file,
+                      onTap: () => controller.photoPicker(),
+                    ),
                   ),
                   SizedBox(
                     height: Get.height * 0.08,
                   ),
-                  const ReNameField(),
+                  ReNameField(controller.nameController),
                   SizedBox(
                     height: Get.height * 0.01,
                   ),
-                  const ReEmailField(),
+                  ReEmailField(controller.emailController),
                   SizedBox(
                     height: Get.height * 0.01,
                   ),
-                  const RePasswordField(),
+                  RePasswordField(controller.passwordController),
                   SizedBox(
                     height: Get.height * 0.02,
                   ),
@@ -98,7 +84,11 @@ class SignupView extends StatefulWidget {
                             color: ColorLib.white, fontSize: 14),
                       ),
                       onPressed: () async {
-                        if (controller.signUpKey.currentState!.validate()) {}
+                        try {
+                          await controller.signUpWithEmail();
+                        } on Failure catch (failure) {
+                          showErrorDialog(context, failure.toString());
+                        }
                       }),
                   SizedBox(
                     height: Get.height * 0.05,
@@ -118,9 +108,7 @@ class SignupView extends StatefulWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         IconButton(
-                            onPressed: () async {
-                              await controller.signInWithGoogle();
-                            },
+                            onPressed: () {},
                             icon: Image.asset(
                                 'assets/buttons/social_media_buttons/google.png')),
                         IconButton(

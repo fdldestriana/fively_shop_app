@@ -40,11 +40,11 @@ class LoginView extends StatefulWidget {
                   SizedBox(
                     height: Get.height * 0.09,
                   ),
-                  const ReEmailField(),
+                  ReEmailField(controller.emailController),
                   SizedBox(
                     height: Get.height * 0.01,
                   ),
-                  const RePasswordField(),
+                  RePasswordField(controller.passwordController),
                   SizedBox(
                     height: Get.height * 0.02,
                   ),
@@ -79,7 +79,11 @@ class LoginView extends StatefulWidget {
                             color: ColorLib.white, fontSize: 14),
                       ),
                       onPressed: () async {
-                        if (controller.loginKey.currentState!.validate()) {}
+                        try {
+                          await controller.signInWithEmail();
+                        } on Failure catch (failure) {
+                          showErrorDialog(context, failure.message);
+                        }
                       }),
                   SizedBox(
                     height: Get.height * 0.10,

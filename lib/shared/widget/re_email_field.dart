@@ -2,21 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fively/core.dart';
 
-class ReEmailField extends StatefulWidget {
-  const ReEmailField({super.key});
+class ReEmailField extends StatelessWidget {
+  const ReEmailField(this.controller, {super.key});
 
-  @override
-  State<ReEmailField> createState() => _ReEmailFieldState();
-}
-
-class _ReEmailFieldState extends State<ReEmailField> {
-  final TextEditingController _emailController = TextEditingController();
-  @override
-  void dispose() {
-    super.dispose();
-    _emailController.dispose();
-  }
-
+  final TextEditingController controller;
   String? emailValidator(value) {
     if (value == null || value.isEmpty) {
       return 'Email can not be empty';
@@ -31,14 +20,14 @@ class _ReEmailFieldState extends State<ReEmailField> {
       decoration: BoxDecoration(
           color: ColorLib.white, borderRadius: BorderRadius.circular(4)),
       child: TextFormField(
-        controller: _emailController,
+        controller: controller,
         decoration: InputDecoration(
           border: InputBorder.none,
           contentPadding: EdgeInsets.only(left: Get.width * 0.05),
           labelText: 'Email',
           labelStyle:
               GoogleFonts.montserrat(color: ColorLib.gray, fontSize: 14),
-          suffixIcon: _emailController.text.isNotEmpty
+          suffixIcon: controller.text.isNotEmpty
               ? Icon(
                   Icons.check,
                   color: ColorLib.success,
@@ -46,9 +35,7 @@ class _ReEmailFieldState extends State<ReEmailField> {
               : null,
         ),
         validator: emailValidator,
-        onChanged: (value) {
-          setState(() {});
-        },
+        onChanged: (value) {},
       ),
     );
   }

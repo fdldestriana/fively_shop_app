@@ -48,7 +48,7 @@ class ForgotPasswordView extends StatefulWidget {
                   SizedBox(
                     height: Get.height * 0.02,
                   ),
-                  const ReEmailField(),
+                  // const ReEmailField(),
                   SizedBox(
                     height: Get.height * 0.07,
                   ),

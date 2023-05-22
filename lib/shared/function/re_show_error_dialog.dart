@@ -1,5 +1,6 @@
 import 'package:fively/core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void showErrorDialog(BuildContext context, String message) {
   showDialog(
@@ -9,10 +10,13 @@ void showErrorDialog(BuildContext context, String message) {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text("Ok"),
+            child: Text(
+              "Ok",
+              style: GoogleFonts.montserrat(color: ColorLib.black),
+            ),
           )
         ],
-        backgroundColor: ColorLib.black,
+        backgroundColor: Colors.grey[200],
         content: Text(message),
         title: const Text("An error occured"),
       );
