@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fively/core.dart';
-import '../controller/home_controller.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -16,8 +15,8 @@ class HomeView extends StatefulWidget {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: const [],
+          child: const Column(
+            children: [],
           ),
         ),
       ),

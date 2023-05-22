@@ -1,11 +1,11 @@
 {
     "openai_key": "",
     "modules": [
+        "root",
         "home",
         "signup",
         "login",
         "forgot_password",
-        "main",
         "shop",
         "bag",
         "favorites",

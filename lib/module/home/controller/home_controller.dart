@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fively/state_util.dart';
-import '../view/home_view.dart';
+import 'package:fively/core.dart';
 
 class HomeController extends State<HomeView> implements MvcController {
   static late HomeController instance;
