@@ -53,10 +53,10 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDCmZGLDaxm0V5HuGd4jblpmAxxG9_oZVs',
-    appId: '1:979665319816:android:1bb1adab4454880d47ac3d',
-    messagingSenderId: '979665319816',
-    projectId: 'fively-ecommerce',
-    storageBucket: 'fively-ecommerce.appspot.com',
+    apiKey: 'AIzaSyBvb55_TtuEEkZYJYl7dPIpT2nmSVSZw1I',
+    appId: '1:538839219914:android:2caee2f96d9d229616fe33',
+    messagingSenderId: '538839219914',
+    projectId: 'fir-flutter-codelab-5e038',
+    storageBucket: 'fir-flutter-codelab-5e038.appspot.com',
   );
 }

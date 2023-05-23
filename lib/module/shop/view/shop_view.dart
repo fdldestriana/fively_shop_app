@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fively/core.dart';
-import '../controller/shop_controller.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ShopView extends StatefulWidget {
   const ShopView({Key? key}) : super(key: key);
@@ -9,15 +9,23 @@ class ShopView extends StatefulWidget {
     controller.view = this;
 
     return Scaffold(
+      backgroundColor: ColorLib.background,
       appBar: AppBar(
-        title: const Text("Shop"),
-        actions: const [],
+        automaticallyImplyLeading: false,
+        backgroundColor: ColorLib.background,
+        centerTitle: true,
+        title: Text(
+          'Categories',
+          style: GoogleFonts.montserrat(
+              color: ColorLib.black, fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: const [],
+          child: const Column(
+            children: [],
           ),
         ),
       ),
