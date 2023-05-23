@@ -37,3 +37,4 @@ export 'package:fively/module/home/widget/component/product_item_list.dart';
 export 'package:fively/shared/widget/re_viewall_button.dart';
 export 'package:fively/model/product/product.dart';
 export 'package:fively/model/product/product_repository.dart';
+export 'package:fively/utils/validator/validator.dart';

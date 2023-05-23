@@ -79,10 +79,12 @@ class LoginView extends StatefulWidget {
                             color: ColorLib.white, fontSize: 14),
                       ),
                       onPressed: () async {
-                        try {
-                          await controller.signInWithEmail();
-                        } on Failure catch (failure) {
-                          showErrorDialog(context, failure.message);
+                        if (controller.loginKey.currentState!.validate()) {
+                          try {
+                            await controller.signInWithEmail();
+                          } on Failure catch (failure) {
+                            showErrorDialog(context, failure.message);
+                          }
                         }
                       }),
                   SizedBox(

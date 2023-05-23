@@ -10,6 +10,9 @@ class RePasswordField extends StatelessWidget {
     if (value == null || value.isEmpty) {
       return 'Password can not be empty';
     }
+    if (value.length < 6) {
+      return 'Password must be at least 6 characters';
+    }
     return null;
   }
 

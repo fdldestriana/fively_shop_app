@@ -84,10 +84,12 @@ class SignupView extends StatefulWidget {
                             color: ColorLib.white, fontSize: 14),
                       ),
                       onPressed: () async {
-                        try {
-                          await controller.signUpWithEmail();
-                        } on Failure catch (failure) {
-                          showErrorDialog(context, failure.toString());
+                        if (controller.signUpKey.currentState!.validate()) {
+                          try {
+                            await controller.signUpWithEmail();
+                          } on Failure catch (failure) {
+                            showErrorDialog(context, failure.toString());
+                          }
                         }
                       }),
                   SizedBox(
