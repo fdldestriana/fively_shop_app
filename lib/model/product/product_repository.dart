@@ -2,15 +2,13 @@
 // import 'package:fively/core.dart';
 
 // class ProductRepository {
-//   CollectionReference productsRef = FirebaseFirestore.instance
-//       .collection('products')
-//       .withConverter<Product>(
-//           fromFirestore: (snapshot, _) =>
-//               Product.fromFirestore(snapshot.data()!),
-//           toFirestore: (product, _) => product.toJson());
+//   Future<List<Product>> getProducts() async {
+//     Future<QuerySnapshot<Map<String, dynamic>>> collectionRef =
+//         FirebaseFirestore.instance.collection('products').get();
 
-//   Future<void> getProduct() async {
-//     List<QueryDocumentSnapshot<Object?>> products =
-//         await productsRef.get().then((value) => value.docs);
+//     List<Product> list = await collectionRef.then((products) => products.docs
+//         .map((e) => Product.fromFirestore(e as Map<String, dynamic>))
+//         .toList());
+//     return list;
 //   }
 // }

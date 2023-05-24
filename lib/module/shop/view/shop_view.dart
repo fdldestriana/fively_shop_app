@@ -13,6 +13,16 @@ class ShopView extends StatefulWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: ColorLib.background,
+        bottom: TabBar(
+            indicatorColor: ColorLib.primary,
+            labelColor: Colors.black87,
+            unselectedLabelColor: Colors.black54,
+            controller: controller.tabController,
+            tabs: [
+              SizedBox(width: Get.width / 3, child: const Tab(text: 'Women')),
+              SizedBox(width: Get.width / 3, child: const Tab(text: 'Men')),
+              SizedBox(width: Get.width / 3, child: const Tab(text: 'Kids')),
+            ]),
         centerTitle: true,
         title: Text(
           'Categories',
@@ -21,13 +31,17 @@ class ShopView extends StatefulWidget {
         ),
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(10.0),
-          child: const Column(
-            children: [],
-          ),
-        ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: Get.width * 0.04, vertical: Get.height * 0.02),
+        child: TabBarView(controller: controller.tabController, children: [
+          CategoryList(
+              categories: controller.categories, images: controller.women),
+          CategoryList(
+              categories: controller.categories, images: controller.men),
+          CategoryList(
+              categories: controller.categories, images: controller.kids),
+        ]),
       ),
     );
   }

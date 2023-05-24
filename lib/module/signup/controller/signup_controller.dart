@@ -48,7 +48,15 @@ class SignupController extends State<SignupView> implements MvcController {
     }
   }
 
+  AuthState _authState = AuthState.notSignedUp;
+  AuthState get authState => _authState;
+  void setAuth(AuthState state) {
+    _authState = state;
+    setState(() {});
+  }
+
   Future<void> signUpWithEmail() async {
+    setAuth(AuthState.loading);
     FirebaseAuth fireAuth = FirebaseAuth.instance;
     FirebaseFirestore fireFirestore = FirebaseFirestore.instance;
     FirebaseStorage fireStorage = FirebaseStorage.instance;
@@ -78,8 +86,10 @@ class SignupController extends State<SignupView> implements MvcController {
       emailController.clear();
       passwordController.clear();
       file = null;
+      setAuth(AuthState.signedUp);
       setState(() {});
     } on FirebaseAuthException catch (e) {
+      setAuth(AuthState.notSignedUp);
       if (e.code == 'email-already-in-use') {
         throw Failure(message: e.message as String);
       }
@@ -93,7 +103,10 @@ class SignupController extends State<SignupView> implements MvcController {
         throw Failure(message: e.message as String);
       }
     } catch (e) {
+      setAuth(AuthState.notSignedUp);
       throw Failure(message: e.toString());
     }
   }
 }
+
+enum AuthState { notSignedUp, loading, signedUp }

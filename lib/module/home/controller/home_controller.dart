@@ -16,4 +16,10 @@ class HomeController extends State<HomeView> implements MvcController {
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);
+
+  // List<Product> _products = [];
+  // List<Product> get products => _products;
+  // Future<void> getProducts() async {
+  //   _products = await ProductRepository().getProducts();
+  // }
 }

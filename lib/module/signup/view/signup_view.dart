@@ -77,21 +77,55 @@ class SignupView extends StatefulWidget {
                   SizedBox(
                     height: Get.height * 0.02,
                   ),
-                  ReButton(
-                      child: Text(
-                        'SIGN UP',
-                        style: GoogleFonts.montserrat(
-                            color: ColorLib.white, fontSize: 14),
-                      ),
-                      onPressed: () async {
-                        if (controller.signUpKey.currentState!.validate()) {
-                          try {
-                            await controller.signUpWithEmail();
-                          } on Failure catch (failure) {
-                            showErrorDialog(context, failure.toString());
+                  if (controller.authState == AuthState.notSignedUp) ...[
+                    ReButton(
+                        child: Text(
+                          'SIGN UP',
+                          style: GoogleFonts.montserrat(
+                              color: ColorLib.white, fontSize: 14),
+                        ),
+                        onPressed: () async {
+                          if (controller.signUpKey.currentState!.validate()) {
+                            try {
+                              await controller.signUpWithEmail();
+                            } on Failure catch (failure) {
+                              showErrorDialog(context, failure.toString());
+                            }
                           }
-                        }
-                      }),
+                        })
+                  ] else if (controller.authState == AuthState.loading) ...[
+                    Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            'Signing up ....',
+                            style:
+                                GoogleFonts.montserrat(color: ColorLib.black),
+                          ),
+                          SizedBox(
+                            height: Get.height * 0.02,
+                          ),
+                          CircularProgressIndicator(
+                            color: ColorLib.primary,
+                          )
+                        ],
+                      ),
+                    )
+                  ] else if (controller.authState == AuthState.signedUp) ...[
+                    Center(
+                        child: Column(
+                      children: [
+                        Text('Sign Up success !!!',
+                            style:
+                                GoogleFonts.montserrat(color: ColorLib.black)),
+                        Icon(
+                          Icons.check,
+                          size: 36,
+                          color: ColorLib.success,
+                        )
+                      ],
+                    ))
+                  ],
                   SizedBox(
                     height: Get.height * 0.05,
                   ),

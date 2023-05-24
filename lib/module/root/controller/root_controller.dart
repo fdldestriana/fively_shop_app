@@ -1,7 +1,5 @@
 import 'package:fively/core.dart';
 import 'package:flutter/material.dart';
-import 'package:fively/state_util.dart';
-import '../view/root_view.dart';
 
 class RootController extends State<RootView> implements MvcController {
   static late RootController instance;
