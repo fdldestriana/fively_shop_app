@@ -48,13 +48,42 @@ class BagView extends StatefulWidget {
                 borderRadius: BorderRadius.circular(Get.width * 0.02),
                 color: ColorLib.white,
               ),
-              child: ListTile(
-                leading: Image.asset(
-                  'assets/images/banner.jpeg',
-                  width: Get.width * 0.91,
-                  height: Get.width * 0.91,
-                  fit: BoxFit.cover,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(Get.width * 0.02),
+                        bottomLeft: Radius.circular(Get.width * 0.02)),
+                    child: Image.asset(
+                      'assets/images/banner.jpeg',
+                      width: Get.width * 0.28,
+                      height: Get.height * 0.13,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Column(
+                        children: [
+                          Text('Pullover'),
+                          Text('Color:Black'),
+                          Text('Size:L')
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.more_vert),
+                          ),
+                          const Text('51\$')
+                        ],
+                      )
+                    ],
+                  )
+                ],
               ),
             )
           ],
