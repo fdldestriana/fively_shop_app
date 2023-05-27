@@ -40,3 +40,4 @@ export 'package:fively/shared/widget/re_viewall_button.dart';
 export 'package:fively/model/product/product.dart';
 export 'package:fively/model/product/product_repository.dart';
 export 'package:fively/utils/validator/validator.dart';
+export 'package:fively/module/bag/widget/component/cart_item.dart';

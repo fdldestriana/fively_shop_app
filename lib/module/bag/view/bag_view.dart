@@ -35,58 +35,19 @@ class BagView extends StatefulWidget {
               ),
             ),
           ),
+          // property below is used to prevent appbar color changing while scrolling the body
+          scrolledUnderElevation: 0.0,
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.04),
-        child: ListView(
-          children: [
-            Container(
-              width: Get.width * 0.91,
-              height: Get.height * 0.13,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Get.width * 0.02),
-                color: ColorLib.white,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(Get.width * 0.02),
-                        bottomLeft: Radius.circular(Get.width * 0.02)),
-                    child: Image.asset(
-                      'assets/images/banner.jpeg',
-                      width: Get.width * 0.28,
-                      height: Get.height * 0.13,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Column(
-                        children: [
-                          Text('Pullover'),
-                          Text('Color:Black'),
-                          Text('Size:L')
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.more_vert),
-                          ),
-                          const Text('51\$')
-                        ],
-                      )
-                    ],
-                  )
-                ],
-              ),
-            )
-          ],
+        padding: EdgeInsets.symmetric(
+            horizontal: Get.width * 0.04, vertical: Get.height * 0.02),
+        child: ListView.separated(
+          separatorBuilder: (context, index) => SizedBox(
+            height: Get.height * 0.02,
+          ),
+          itemBuilder: (context, index) => const CartItem(),
+          itemCount: 6,
         ),
       ),
     );
