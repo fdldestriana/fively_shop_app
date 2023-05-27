@@ -43,12 +43,21 @@ class BagView extends StatefulWidget {
         padding: EdgeInsets.symmetric(
             horizontal: Get.width * 0.04, vertical: Get.height * 0.02),
         child: ListView.separated(
-          separatorBuilder: (context, index) => SizedBox(
-            height: Get.height * 0.02,
-          ),
-          itemBuilder: (context, index) => const CartItem(),
-          itemCount: 6,
-        ),
+            controller: controller.scrollController,
+            itemCount: 12,
+            itemBuilder: (context, index) => const CartItem(
+                  image: 'assets/images/banner.jpeg',
+                  name: 'Pullover',
+                  color: 'Black',
+                  size: 'L',
+                  price: 56,
+                ),
+            separatorBuilder: (context, index) =>
+                SizedBox(height: Get.height * 0.03)),
+      ),
+      bottomSheet: Visibility(
+        visible: controller.isVisible,
+        child: const BagBottomSheet(),
       ),
     );
   }

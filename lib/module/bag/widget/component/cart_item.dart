@@ -1,8 +1,21 @@
 import 'package:fively/core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CartItem extends StatelessWidget {
-  const CartItem({super.key});
+  const CartItem(
+      {super.key,
+      required this.image,
+      required this.name,
+      required this.color,
+      required this.size,
+      required this.price});
+
+  final String image;
+  final String name;
+  final String color;
+  final String size;
+  final int price;
 
   @override
   Widget build(BuildContext context) {
@@ -18,29 +31,49 @@ class CartItem extends StatelessWidget {
                 topLeft: Radius.circular(Get.width * 0.02),
                 bottomLeft: Radius.circular(Get.width * 0.02)),
             child: Image.asset(
-              'assets/images/banner.jpeg',
+              image,
               width: Get.width * 0.28,
               height: Get.height * 0.13,
               fit: BoxFit.cover,
             ),
           ),
-          SizedBox(
-            width: Get.width * 0.03,
-          ),
+          SizedBox(width: Get.width * 0.02),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Pullover'),
-                      Row(
-                        children: [Text('Color: Black'), Text('Size:L')],
+                      Text(
+                        name,
+                        style: GoogleFonts.montserrat(
+                            color: ColorLib.black, fontSize: 16),
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          text: 'Color: ',
+                          style: GoogleFonts.montserrat(color: ColorLib.gray),
+                          children: [
+                            TextSpan(
+                                text: '$color    ',
+                                style: GoogleFonts.montserrat(
+                                    color: ColorLib.black)),
+                            TextSpan(
+                                text: 'Size: ',
+                                style: GoogleFonts.montserrat(
+                                    color: ColorLib.gray)),
+                            TextSpan(
+                                text: size,
+                                style: GoogleFonts.montserrat(
+                                    color: ColorLib.black))
+                          ],
+                        ),
                       )
                     ],
                   ),
+                  SizedBox(width: Get.width * 0.08),
                   IconButton(
                       onPressed: () {}, icon: const Icon(Icons.more_vert))
                 ],
@@ -55,7 +88,8 @@ class CartItem extends StatelessWidget {
                       IconButton(onPressed: () {}, icon: const Icon(Icons.add))
                     ],
                   ),
-                  const Text('5\$')
+                  SizedBox(width: Get.width * 0.22),
+                  Text('$price\$')
                 ],
               )
             ],

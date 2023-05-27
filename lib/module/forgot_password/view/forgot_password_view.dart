@@ -53,14 +53,16 @@ class ForgotPasswordView extends StatefulWidget {
                     height: Get.height * 0.07,
                   ),
                   ReButton(
+                    onPressed: () async {
+                      controller.forgotPasswordKey.currentState!.validate();
+                    },
+                    height: Get.height * 0.06,
+                    width: double.infinity,
                     child: Text(
                       'SEND',
                       style: GoogleFonts.montserrat(
                           color: ColorLib.white, fontSize: 14),
                     ),
-                    onPressed: () async {
-                      controller.forgotPasswordKey.currentState!.validate();
-                    },
                   ),
                 ],
               ),

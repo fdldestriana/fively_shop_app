@@ -73,6 +73,8 @@ class LoginView extends StatefulWidget {
                     height: Get.height * 0.03,
                   ),
                   ReButton(
+                      height: Get.height * 0.06,
+                      width: double.infinity,
                       child: Text(
                         'LOGIN',
                         style: GoogleFonts.montserrat(

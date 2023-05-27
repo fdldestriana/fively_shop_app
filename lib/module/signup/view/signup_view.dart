@@ -79,6 +79,8 @@ class SignupView extends StatefulWidget {
                   ),
                   if (controller.authState == AuthState.notSignedUp) ...[
                     ReButton(
+                        height: Get.height * 0.06,
+                        width: double.infinity,
                         child: Text(
                           'SIGN UP',
                           style: GoogleFonts.montserrat(
@@ -113,18 +115,19 @@ class SignupView extends StatefulWidget {
                     )
                   ] else if (controller.authState == AuthState.signedUp) ...[
                     Center(
-                        child: Column(
-                      children: [
-                        Text('Sign Up success !!!',
-                            style:
-                                GoogleFonts.montserrat(color: ColorLib.black)),
-                        Icon(
-                          Icons.check,
-                          size: 36,
-                          color: ColorLib.success,
-                        )
-                      ],
-                    ))
+                      child: Column(
+                        children: [
+                          Text('Sign Up success !!!',
+                              style: GoogleFonts.montserrat(
+                                  color: ColorLib.black)),
+                          Icon(
+                            Icons.check,
+                            size: 36,
+                            color: ColorLib.success,
+                          )
+                        ],
+                      ),
+                    )
                   ],
                   SizedBox(
                     height: Get.height * 0.05,
