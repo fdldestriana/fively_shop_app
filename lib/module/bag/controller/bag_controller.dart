@@ -1,7 +1,8 @@
+import 'package:fively/core.dart';
+import 'package:fively/model/item_cart/item_cart.dart';
+import 'package:fively/service/database/database_service.dart';
 import 'package:flutter/material.dart';
-import 'package:fively/state_util.dart';
 import 'package:flutter/rendering.dart';
-import '../view/bag_view.dart';
 
 class BagController extends State<BagView> implements MvcController {
   static late BagController instance;
@@ -15,9 +16,7 @@ class BagController extends State<BagView> implements MvcController {
     scrollController.addListener(
       () {
         if (scrollController.position.userScrollDirection ==
-                ScrollDirection.forward ||
-            scrollController.position.userScrollDirection ==
-                ScrollDirection.idle) {
+            ScrollDirection.forward) {
           isVisible = true;
           setState(() {});
         }
@@ -42,4 +41,11 @@ class BagController extends State<BagView> implements MvcController {
 
   late ScrollController scrollController;
   bool isVisible = true;
+
+  List<ItemCart> itemCarts = [];
+  DatabaseService databaseService = DatabaseService();
+  Future<List<ItemCart>> getData() async {
+    itemCarts = await databaseService.getItemCartList();
+    return itemCarts;
+  }
 }

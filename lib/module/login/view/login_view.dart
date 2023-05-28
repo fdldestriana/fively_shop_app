@@ -72,23 +72,58 @@ class LoginView extends StatefulWidget {
                   SizedBox(
                     height: Get.height * 0.03,
                   ),
-                  ReButton(
-                      height: Get.height * 0.06,
-                      width: double.infinity,
-                      child: Text(
-                        'LOGIN',
-                        style: GoogleFonts.montserrat(
-                            color: ColorLib.white, fontSize: 14),
-                      ),
-                      onPressed: () async {
-                        if (controller.loginKey.currentState!.validate()) {
-                          try {
-                            await controller.signInWithEmail();
-                          } on Failure catch (failure) {
-                            showErrorDialog(context, failure.message);
+                  if (controller.authState == AuthState.notSignedIn) ...[
+                    ReButton(
+                        height: Get.height * 0.06,
+                        width: double.infinity,
+                        child: Text(
+                          'LOGIN',
+                          style: GoogleFonts.montserrat(
+                              color: ColorLib.white, fontSize: 14),
+                        ),
+                        onPressed: () async {
+                          if (controller.loginKey.currentState!.validate()) {
+                            try {
+                              await controller.signInWithEmail();
+                            } on Failure catch (failure) {
+                              showErrorDialog(context, failure.message);
+                            }
                           }
-                        }
-                      }),
+                        }),
+                  ] else if (controller.authState == AuthState.loading) ...[
+                    Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            'Signing in ....',
+                            style:
+                                GoogleFonts.montserrat(color: ColorLib.black),
+                          ),
+                          SizedBox(
+                            height: Get.height * 0.02,
+                          ),
+                          CircularProgressIndicator(
+                            color: ColorLib.primary,
+                          )
+                        ],
+                      ),
+                    )
+                  ] else if (controller.authState == AuthState.signedIn) ...[
+                    Center(
+                      child: Column(
+                        children: [
+                          Text('Sign In success !!!',
+                              style: GoogleFonts.montserrat(
+                                  color: ColorLib.black)),
+                          Icon(
+                            Icons.check,
+                            size: 36,
+                            color: ColorLib.success,
+                          )
+                        ],
+                      ),
+                    )
+                  ],
                   SizedBox(
                     height: Get.height * 0.10,
                   ),

@@ -42,3 +42,5 @@ export 'package:fively/model/product/product_repository.dart';
 export 'package:fively/utils/validator/validator.dart';
 export 'package:fively/module/bag/widget/component/cart_item.dart';
 export 'package:fively/module/bag/widget/component/bag_bottom_sheet.dart';
+export 'package:fively/service/auth/auth_service.dart';
+export 'package:fively/service/auth/auth_state.dart';
