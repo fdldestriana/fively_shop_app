@@ -34,7 +34,7 @@ class LoginController extends State<LoginView> implements MvcController {
           email: emailController.text, password: passwordController.text);
       emailController.clear();
       passwordController.clear();
-      Get.to(const HomeView());
+      Get.to(const RootView());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw Failure(message: e.message as String);

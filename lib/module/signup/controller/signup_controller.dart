@@ -34,14 +34,14 @@ class SignupController extends State<SignupView> implements MvcController {
   final signUpKey = GlobalKey<FormState>();
 
   File? file;
-  photoPicker() async {
+  Future<void> photoPicker() async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: false,
         allowedExtensions: ['png', 'jpg'],
         type: FileType.custom,
       );
-      file = File(result?.files.single.path as String);
+      file = result != null ? File(result.files.single.path as String) : null;
       setState(() {});
     } on Exception catch (e) {
       showErrorDialog(context, e.toString());

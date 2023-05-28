@@ -1,5 +1,6 @@
 import 'package:fively/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProductItem extends StatelessWidget {
@@ -15,25 +16,29 @@ class ProductItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(clipBehavior: Clip.none, children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                'https://firebasestorage.googleapis.com/v0/b/fir-flutter-codelab-5e038.appspot.com/o/shoes%2F${product.name.toLowerCase().replaceAll(' ', '_')}.jpeg?alt=media&token=${product.image}',
-                width: Get.width * 0.39,
-                height: Get.height * 0.23,
-                fit: BoxFit.cover,
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  '${dotenv.env['IMAGE']}${product.name.toLowerCase().replaceAll(' ', '_')}.jpeg?alt=media&token=${product.image}',
+                  width: Get.width * 0.39,
+                  height: Get.height * 0.23,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            Positioned(
-                right: -Get.width * 0.01,
-                bottom: -Get.height * 0.02,
-                child: ReFavoriteButton(
-                  icon:
-                      product.popular ? Icons.favorite : Icons.favorite_border,
-                  color: product.popular ? ColorLib.primary : ColorLib.gray,
-                ))
-          ]),
+              Positioned(
+                  right: -Get.width * 0.01,
+                  bottom: -Get.height * 0.02,
+                  child: ReFavoriteButton(
+                    icon: product.popular
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    color: product.popular ? ColorLib.primary : ColorLib.gray,
+                  ))
+            ],
+          ),
           Expanded(
             child: Row(
               children: [
