@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fively/core.dart';
 
@@ -6,14 +6,13 @@ class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
   Widget build(context, HomeController controller) {
     controller.view = this;
-    CollectionReference<Map<String, dynamic>> productsCollections =
-        FirebaseFirestore.instance.collection('products');
+    ProductRepository productRepository = ProductRepository();
 
     return Scaffold(
       backgroundColor: ColorLib.background,
-      body: FutureBuilder<QuerySnapshot>(
-        future: productsCollections.get(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      body: FutureBuilder<List<Product>>(
+        future: productRepository.getProductsFirestore(),
+        builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: Text('Loading ....'),
@@ -34,12 +33,7 @@ class HomeView extends StatefulWidget {
                   ProductItemList(
                     title: 'Sale',
                     subTitle: 'Super summer sale',
-                    products: snapshot.data!.docs
-                        .map((e) => e.data())
-                        .toList()
-                        .map((e) =>
-                            Product.fromFirestore(e as Map<String, dynamic>))
-                        .toList(),
+                    products: snapshot.data!,
                   ),
                   SizedBox(
                     height: Get.height * 0.03,
@@ -47,12 +41,7 @@ class HomeView extends StatefulWidget {
                   ProductItemList(
                     title: 'New',
                     subTitle: 'You\'ve never seen before!',
-                    products: snapshot.data!.docs
-                        .map((e) => e.data())
-                        .toList()
-                        .map((e) =>
-                            Product.fromFirestore(e as Map<String, dynamic>))
-                        .toList(),
+                    products: snapshot.data!,
                   ),
                 ],
               );

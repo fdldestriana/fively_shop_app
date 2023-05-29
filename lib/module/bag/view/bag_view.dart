@@ -17,11 +17,7 @@ class BagView extends StatefulWidget {
           backgroundColor: ColorLib.background,
           leadingWidth: 0,
           actions: [
-            IconButton(
-                onPressed: () {
-                  print(controller.itemCarts);
-                },
-                icon: const Icon(Icons.search))
+            IconButton(onPressed: () {}, icon: const Icon(Icons.search))
           ],
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(Get.height * 0.12),

@@ -1,10 +1,21 @@
+import 'package:hive/hive.dart';
+part 'product.g.dart';
+
+@HiveType(typeId: 1)
 class Product {
+  @HiveField(0)
   final String brand;
+  @HiveField(1)
   final String creationDate;
+  @HiveField(2)
   final List<dynamic> favorites;
+  @HiveField(3)
   final String image;
+  @HiveField(4)
   final String name;
+  @HiveField(5)
   final bool popular;
+  @HiveField(6)
   final int price;
 
   Product({
