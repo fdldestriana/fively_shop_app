@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fively/core.dart';
+import 'package:hive/hive.dart';
 
 class HomeController extends State<HomeView> implements MvcController {
   static late HomeController instance;
@@ -9,17 +10,17 @@ class HomeController extends State<HomeView> implements MvcController {
   void initState() {
     instance = this;
     super.initState();
+    () async {
+      await Hive.openBox('favorite_box');
+    };
   }
 
   @override
-  void dispose() => super.dispose();
+  void dispose() async {
+    super.dispose();
+    await Hive.box('favorite_box').close();
+  }
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);
-
-  // List<Product> _products = [];
-  // List<Product> get products => _products;
-  // Future<void> getProducts() async {
-  //   _products = await ProductRepository().getProducts();
-  // }
 }

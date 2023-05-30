@@ -15,7 +15,6 @@ class BagView extends StatefulWidget {
         child: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: ColorLib.background,
-          leadingWidth: 0,
           actions: [
             IconButton(onPressed: () {}, icon: const Icon(Icons.search))
           ],

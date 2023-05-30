@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fively/state_util.dart';
-import '../view/favorites_view.dart';
+import 'package:hive/hive.dart';
+import 'package:fively/core.dart';
 
-class FavoritesController extends State<FavoritesView> implements MvcController {
+class FavoritesController extends State<FavoritesView>
+    implements MvcController {
   static late FavoritesController instance;
   late FavoritesView view;
 
@@ -10,10 +11,16 @@ class FavoritesController extends State<FavoritesView> implements MvcController 
   void initState() {
     instance = this;
     super.initState();
+    () async {
+      await Hive.openBox('favorite_box');
+    };
   }
 
   @override
-  void dispose() => super.dispose();
+  void dispose() async {
+    super.dispose();
+    await Hive.box('favorite_box').close();
+  }
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);

@@ -2,6 +2,7 @@ import 'package:fively/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({super.key, required this.product});
@@ -29,14 +30,17 @@ class ProductItem extends StatelessWidget {
                 ),
               ),
               Positioned(
-                  right: -Get.width * 0.01,
-                  bottom: -Get.height * 0.02,
-                  child: ReFavoriteButton(
-                    icon: product.popular
-                        ? Icons.favorite
-                        : Icons.favorite_border,
-                    color: product.popular ? ColorLib.primary : ColorLib.gray,
-                  ))
+                right: -Get.width * 0.01,
+                bottom: -Get.height * 0.02,
+                child: ReFavoriteButton(
+                  icon:
+                      product.popular ? Icons.favorite : Icons.favorite_border,
+                  color: product.popular ? ColorLib.primary : ColorLib.gray,
+                  onTap: () async {
+                    await Hive.box('favorite_box').put(product.image, product);
+                  },
+                ),
+              )
             ],
           ),
           Expanded(

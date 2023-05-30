@@ -28,8 +28,9 @@ class CartItem extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(Get.width * 0.02),
-                bottomLeft: Radius.circular(Get.width * 0.02)),
+              topLeft: Radius.circular(Get.width * 0.02),
+              bottomLeft: Radius.circular(Get.width * 0.02),
+            ),
             child: Image.asset(
               image,
               width: Get.width * 0.28,
