@@ -13,6 +13,8 @@ void main() async {
   final appDocumentDir = await path.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Hive.registerAdapter(ProductAdapter());
+  await Hive.openBox('favorites_box');
+  await Hive.openBox('cart_box');
   runApp(const MyApp());
 }
 
@@ -28,7 +30,6 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // home: const SignupView(),
       home: AuthService.isAuthenticated ? const RootView() : const SignupView(),
     );
   }

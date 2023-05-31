@@ -17,16 +17,18 @@ class Product {
   final bool popular;
   @HiveField(6)
   final int price;
+  @HiveField(7)
+  final String id;
 
-  Product({
-    required this.brand,
-    required this.creationDate,
-    required this.favorites,
-    required this.image,
-    required this.name,
-    required this.popular,
-    required this.price,
-  });
+  Product(
+      {required this.brand,
+      required this.creationDate,
+      required this.favorites,
+      required this.image,
+      required this.name,
+      required this.popular,
+      required this.price,
+      required this.id});
 
   static final empty = Product(
       brand: '',
@@ -35,7 +37,8 @@ class Product {
       image: '',
       name: '',
       popular: false,
-      price: 0);
+      price: 0,
+      id: '');
 
   factory Product.fromFirestore(Map<String, dynamic> snapshot) => Product(
       brand: snapshot['brand'],
@@ -44,7 +47,8 @@ class Product {
       image: snapshot['image'],
       name: snapshot['name'],
       popular: snapshot['popular'],
-      price: snapshot['price']);
+      price: snapshot['price'],
+      id: snapshot['id']);
 
   Map<String, dynamic> toJson() => {
         'brand': brand,
@@ -53,6 +57,7 @@ class Product {
         'image': image,
         'name': name,
         'popular': popular,
-        'price': price
+        'price': price,
+        'id': id
       };
 }

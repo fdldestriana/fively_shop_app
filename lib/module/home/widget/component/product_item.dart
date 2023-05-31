@@ -37,7 +37,7 @@ class ProductItem extends StatelessWidget {
                       product.popular ? Icons.favorite : Icons.favorite_border,
                   color: product.popular ? ColorLib.primary : ColorLib.gray,
                   onTap: () async {
-                    await Hive.box('favorite_box').put(product.image, product);
+                    await Hive.box('favorites_box').put(product.id, product);
                   },
                 ),
               )

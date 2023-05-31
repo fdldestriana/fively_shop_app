@@ -1,21 +1,19 @@
 import 'package:fively/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CartItem extends StatelessWidget {
-  const CartItem(
-      {super.key,
-      required this.image,
-      required this.name,
-      required this.color,
-      required this.size,
-      required this.price});
+  const CartItem({
+    super.key,
+    required this.product,
+    required this.color,
+    required this.size,
+  });
 
-  final String image;
-  final String name;
+  final Product product;
   final String color;
   final String size;
-  final int price;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +29,8 @@ class CartItem extends StatelessWidget {
               topLeft: Radius.circular(Get.width * 0.02),
               bottomLeft: Radius.circular(Get.width * 0.02),
             ),
-            child: Image.asset(
-              image,
+            child: Image.network(
+              '${dotenv.env['IMAGE']}${product.name.toLowerCase().replaceAll(' ', '_')}.jpeg?alt=media&token=${product.image}',
               width: Get.width * 0.28,
               height: Get.height * 0.13,
               fit: BoxFit.cover,
@@ -48,7 +46,7 @@ class CartItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        name,
+                        product.name,
                         style: GoogleFonts.montserrat(
                             color: ColorLib.black, fontSize: 16),
                       ),
@@ -74,7 +72,7 @@ class CartItem extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(width: Get.width * 0.08),
+                  SizedBox(width: Get.width * 0.14),
                   IconButton(
                       onPressed: () {}, icon: const Icon(Icons.more_vert))
                 ],
@@ -89,8 +87,8 @@ class CartItem extends StatelessWidget {
                       IconButton(onPressed: () {}, icon: const Icon(Icons.add))
                     ],
                   ),
-                  SizedBox(width: Get.width * 0.22),
-                  Text('$price\$')
+                  SizedBox(width: Get.width * 0.20),
+                  Text('${product.price / 100} \$')
                 ],
               )
             ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:fively/core.dart';
 
 class FavoritesController extends State<FavoritesView>
@@ -11,15 +10,11 @@ class FavoritesController extends State<FavoritesView>
   void initState() {
     instance = this;
     super.initState();
-    () async {
-      await Hive.openBox('favorite_box');
-    };
   }
 
   @override
-  void dispose() async {
+  void dispose() {
     super.dispose();
-    await Hive.box('favorite_box').close();
   }
 
   @override

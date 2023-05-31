@@ -1,23 +1,20 @@
 import 'package:fively/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 
 class FavoriteItem extends StatelessWidget {
   const FavoriteItem(
       {super.key,
-      required this.image,
-      required this.brand,
-      required this.name,
       required this.color,
       required this.size,
-      required this.price});
+      required this.product});
 
-  final String image;
-  final String brand;
-  final String name;
   final String color;
   final String size;
-  final int price;
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +34,7 @@ class FavoriteItem extends StatelessWidget {
                   bottomLeft: Radius.circular(Get.width * 0.02),
                 ),
                 child: Image.network(
-                  image,
+                  '${dotenv.env['IMAGE']}${product.name.toLowerCase().replaceAll(' ', '_')}.jpeg?alt=media&token=${product.image}',
                   width: Get.width * 0.28,
                   height: Get.height * 0.13,
                   fit: BoxFit.cover,
@@ -53,12 +50,13 @@ class FavoriteItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            brand,
+                            product.brand,
                             style: GoogleFonts.montserrat(
                                 color: ColorLib.gray, fontSize: 11),
                           ),
                           Text(
-                            name,
+                            product.name,
+                            overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.montserrat(
                                 color: ColorLib.black, fontSize: 16),
                           ),
@@ -93,7 +91,7 @@ class FavoriteItem extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text('$price\$'),
+                      Text('${product.price / 100} \$'),
                       SizedBox(width: Get.width * 0.14),
                       ...List.generate(
                         5,
@@ -114,7 +112,9 @@ class FavoriteItem extends StatelessWidget {
           right: 0,
           top: 0,
           child: IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              await Hive.box('favorites_box').delete(product.id);
+            },
             icon: Icon(
               Icons.close,
               color: ColorLib.gray,
@@ -125,7 +125,9 @@ class FavoriteItem extends StatelessWidget {
           right: -Get.width * 0.01,
           bottom: -Get.height * 0.02,
           child: ReAddToCartButton(
-            onTap: () {},
+            onTap: () async {
+              await Hive.box('cart_box').put(product.id, product);
+            },
           ),
         ),
       ],

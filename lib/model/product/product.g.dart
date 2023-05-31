@@ -24,13 +24,14 @@ class ProductAdapter extends TypeAdapter<Product> {
       name: fields[4] as String,
       popular: fields[5] as bool,
       price: fields[6] as int,
+      id: fields[7] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Product obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.brand)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class ProductAdapter extends TypeAdapter<Product> {
       ..writeByte(5)
       ..write(obj.popular)
       ..writeByte(6)
-      ..write(obj.price);
+      ..write(obj.price)
+      ..writeByte(7)
+      ..write(obj.id);
   }
 
   @override

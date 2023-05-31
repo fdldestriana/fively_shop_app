@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fively/core.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class BagView extends StatefulWidget {
   const BagView({Key? key}) : super(key: key);
@@ -41,22 +42,28 @@ class BagView extends StatefulWidget {
       body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: Get.width * 0.04, vertical: Get.height * 0.02),
-        child: ListView.separated(
-            controller: controller.scrollController,
-            itemCount: 12,
-            itemBuilder: (context, index) => const CartItem(
-                  image: 'assets/images/banner.jpeg',
-                  name: 'Pullover',
-                  color: 'Black',
-                  size: 'L',
-                  price: 56,
-                ),
-            separatorBuilder: (context, index) =>
-                SizedBox(height: Get.height * 0.03)),
+        child: ValueListenableBuilder(
+            builder: (context, value, _) {
+              return ListView.separated(
+                controller: controller.scrollController,
+                itemCount: value.length,
+                itemBuilder: (context, index) {
+                  final product = value.getAt(index) as Product;
+                  return CartItem(
+                    product: product,
+                    color: 'Black',
+                    size: 'L',
+                  );
+                },
+                separatorBuilder: (context, index) =>
+                    SizedBox(height: Get.height * 0.03),
+              );
+            },
+            valueListenable: Hive.box('cart_box').listenable()),
       ),
       bottomSheet: Visibility(
         visible: controller.isVisible,
-        child: const BagBottomSheet(),
+        child: BagBottomSheet2(),
       ),
     );
   }

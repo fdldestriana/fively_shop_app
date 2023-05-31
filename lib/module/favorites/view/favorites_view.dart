@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fively/core.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -42,8 +41,10 @@ class FavoritesView extends StatefulWidget {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: Get.width * 0.04, vertical: Get.height * 0.02),
+        padding: EdgeInsets.only(
+            left: Get.width * 0.04,
+            right: Get.width * 0.04,
+            top: Get.height * 0.02),
         child: ValueListenableBuilder(
           builder: (BuildContext context, value, Widget? _) {
             return ListView.separated(
@@ -51,20 +52,16 @@ class FavoritesView extends StatefulWidget {
               itemBuilder: (context, index) {
                 final product = value.getAt(index) as Product;
                 return FavoriteItem(
-                  image:
-                      '${dotenv.env['IMAGE']}${product.name.toLowerCase().replaceAll(' ', '_')}.jpeg?alt=media&token=${product.image}',
-                  brand: product.brand,
-                  name: product.name,
                   color: 'Black',
+                  product: product,
                   size: 'L',
-                  price: product.price,
                 );
               },
               separatorBuilder: (context, index) =>
                   SizedBox(height: Get.height * 0.03),
             );
           },
-          valueListenable: Hive.box('favorite_box').listenable(),
+          valueListenable: Hive.box('favorites_box').listenable(),
         ),
       ),
     );
