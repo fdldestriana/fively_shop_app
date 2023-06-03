@@ -70,7 +70,7 @@ class ProductItem extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              '${product.price}',
+              '${product.price / 100} \$',
               style:
                   GoogleFonts.montserrat(color: ColorLib.black, fontSize: 13),
             ),

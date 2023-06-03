@@ -10,6 +10,7 @@ class FavoritesController extends State<FavoritesView>
   void initState() {
     instance = this;
     super.initState();
+    dropDown = ValueNotifier(filterDropdown.first);
   }
 
   @override
@@ -19,4 +20,6 @@ class FavoritesController extends State<FavoritesView>
 
   @override
   Widget build(BuildContext context) => widget.build(context, this);
+  List<String> filterDropdown = ["Lowest to high", "Highest to low"];
+  late ValueNotifier<String> dropDown;
 }

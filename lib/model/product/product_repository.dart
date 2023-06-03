@@ -11,7 +11,7 @@ class ProductRepository {
     QuerySnapshot<Map<String, dynamic>> snapshot =
         await FirebaseFirestore.instance.collection('products').get();
     try {
-      print('>>>>>>>>>>> called <<<<<<<<<<');
+      // print('>>>>>>>>>>> called <<<<<<<<<<');
       productsFirestore = snapshot.docs
           .map((e) => e.data())
           .map((e) => Product.fromFirestore(e))
