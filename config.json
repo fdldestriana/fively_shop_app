@@ -9,6 +9,7 @@
         "shop",
         "bag",
         "favorites",
-        "profile"
+        "profile",
+        "my_orders"
     ]
 }
