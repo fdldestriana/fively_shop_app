@@ -30,7 +30,7 @@ class _ShippingItemState extends State<ShippingItem> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6), color: ColorLib.white),
         width: Get.width * 0.92,
-        height: Get.height * 0.09,
+        height: Get.height * 0.08,
         margin: const EdgeInsets.only(top: 10),
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Row(

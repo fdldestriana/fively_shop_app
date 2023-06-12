@@ -1,4 +1,3 @@
-import 'package:fively/state_util.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fively/core.dart';
 import 'package:fively/firebase_options.dart';

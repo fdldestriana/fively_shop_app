@@ -24,9 +24,9 @@ class BagBottomSheet2 extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: Get.width * 0.04),
       color: ColorLib.background,
-      height: Get.height * 0.4,
+      height: Get.height * 0.35,
       child: ListView(
-        physics: const ScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: [
           ListView.builder(
             shrinkWrap: true,

@@ -2,6 +2,7 @@ import 'package:fively/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class CartItem extends StatelessWidget {
   const CartItem({
@@ -9,11 +10,15 @@ class CartItem extends StatelessWidget {
     required this.product,
     required this.color,
     required this.size,
+    required this.addProduct,
+    required this.removeProduct,
   });
 
   final Product product;
   final String color;
   final String size;
+  final Function()? addProduct;
+  final Function()? removeProduct;
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +78,36 @@ class CartItem extends StatelessWidget {
                     ],
                   ),
                   SizedBox(width: Get.width * 0.14),
-                  IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.more_vert))
+                  ValueListenableBuilder(
+                    builder: (BuildContext _, value, Widget? __) {
+                      return PopupMenuButton(
+                        color: ColorLib.white,
+                        icon: const Icon(Icons.more_vert, color: Colors.black),
+                        itemBuilder: (BuildContext context) => [
+                          PopupMenuItem(
+                            child:
+                                const Center(child: Text('Add to favorites')),
+                            onTap: () {},
+                          ),
+                          PopupMenuItem(
+                            child: const Center(
+                                child: Text('Delete from the list')),
+                            onTap: () => value.delete(product.id),
+                          )
+                        ],
+                        offset: Offset(
+                          -(Get.width * 0.10),
+                          -(Get.height * 0.05),
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(Get.width * 0.02),
+                          ),
+                        ),
+                      );
+                    },
+                    valueListenable: Hive.box('cart_box').listenable(),
+                  )
                 ],
               ),
               Row(
@@ -82,9 +115,11 @@ class CartItem extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                          onPressed: () {}, icon: const Icon(Icons.remove)),
+                          onPressed: addProduct,
+                          icon: const Icon(Icons.remove)),
                       const Text('1'),
-                      IconButton(onPressed: () {}, icon: const Icon(Icons.add))
+                      IconButton(
+                          onPressed: removeProduct, icon: const Icon(Icons.add))
                     ],
                   ),
                   SizedBox(width: Get.width * 0.20),
