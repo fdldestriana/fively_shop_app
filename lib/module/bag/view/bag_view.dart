@@ -40,10 +40,13 @@ class BagView extends StatefulWidget {
                   alignment: Alignment.bottomLeft,
                   child: ValueListenableBuilder(
                     builder: (_, value, __) {
-                      final products = value.values;
+                      final products = value.values.toList();
+                      int totalProducts = 0;
                       double totalPrice = 0;
-                      for (var product in products) {
-                        totalPrice += product.price;
+                      for (var i = 0; i < products.length; i++) {
+                        totalPrice += (products[i]["product"].price *
+                            products[i]["itemCount"]);
+                        totalProducts += products[i]["itemCount"] as int;
                       }
 
                       return Container(
@@ -64,7 +67,7 @@ class BagView extends StatefulWidget {
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500),
                             ),
-                            Text("${products.length} items")
+                            Text("$totalProducts items")
                           ],
                         ),
                       );
@@ -83,26 +86,37 @@ class BagView extends StatefulWidget {
         padding: EdgeInsets.symmetric(
             horizontal: Get.width * 0.04, vertical: Get.height * 0.02),
         child: ValueListenableBuilder(
-            builder: (context, value, _) {
-              return ListView.separated(
-                shrinkWrap: true,
-                controller: controller.scrollController,
-                itemCount: value.length,
-                itemBuilder: (context, index) {
-                  final product = value.getAt(index) as Product;
-                  return CartItem(
-                    product: product,
-                    color: 'Black',
-                    size: 'L',
-                    addProduct: () {},
-                    removeProduct: () {},
-                  );
-                },
-                separatorBuilder: (context, index) =>
-                    SizedBox(height: Get.height * 0.01),
-              );
-            },
-            valueListenable: Hive.box('cart_box').listenable()),
+          builder: (context, value, _) {
+            return ListView.separated(
+              shrinkWrap: true,
+              controller: controller.scrollController,
+              itemCount: value.length,
+              itemBuilder: (context, index) {
+                final product = value.getAt(index)["product"] as Product;
+                var itemCount = value.getAt(index)["itemCount"] as int;
+                return CartItem(
+                  product: product,
+                  color: 'Black',
+                  size: 'L',
+                  addProduct: () async {
+                    value.put(product.id,
+                        {"product": product, "itemCount": itemCount + 1});
+                  },
+                  removeProduct: () async {
+                    if (itemCount > 1) {
+                      value.put(product.id,
+                          {"product": product, "itemCount": itemCount - 1});
+                    }
+                  },
+                  itemCount: itemCount,
+                );
+              },
+              separatorBuilder: (context, index) =>
+                  SizedBox(height: Get.height * 0.01),
+            );
+          },
+          valueListenable: Hive.box('cart_box').listenable(),
+        ),
       ),
       bottomSheet: Visibility(
         visible: controller.isVisible,

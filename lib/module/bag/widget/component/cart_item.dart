@@ -5,20 +5,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class CartItem extends StatelessWidget {
-  const CartItem({
-    super.key,
-    required this.product,
-    required this.color,
-    required this.size,
-    required this.addProduct,
-    required this.removeProduct,
-  });
+  const CartItem(
+      {super.key,
+      required this.product,
+      required this.color,
+      required this.size,
+      required this.addProduct,
+      required this.removeProduct,
+      required this.itemCount});
 
   final Product product;
   final String color;
   final String size;
   final Function()? addProduct;
   final Function()? removeProduct;
+  final int itemCount;
 
   @override
   Widget build(BuildContext context) {
@@ -78,35 +79,34 @@ class CartItem extends StatelessWidget {
                     ],
                   ),
                   SizedBox(width: Get.width * 0.14),
-                  ValueListenableBuilder(
-                    builder: (BuildContext _, value, Widget? __) {
-                      return PopupMenuButton(
-                        color: ColorLib.white,
-                        icon: const Icon(Icons.more_vert, color: Colors.black),
-                        itemBuilder: (BuildContext context) => [
-                          PopupMenuItem(
-                            child:
-                                const Center(child: Text('Add to favorites')),
-                            onTap: () {},
-                          ),
-                          PopupMenuItem(
-                            child: const Center(
-                                child: Text('Delete from the list')),
-                            onTap: () => value.delete(product.id),
-                          )
-                        ],
-                        offset: Offset(
-                          -(Get.width * 0.10),
-                          -(Get.height * 0.05),
+                  PopupMenuButton(
+                    color: ColorLib.white,
+                    icon: const Icon(Icons.more_vert, color: Colors.black),
+                    itemBuilder: (BuildContext context) => [
+                      PopupMenuItem(
+                        child: const Center(
+                          child: Text('Add to favorites'),
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(Get.width * 0.02),
-                          ),
+                        onTap: () async => await Hive.box('favorites_box')
+                            .put(product.id, product),
+                      ),
+                      PopupMenuItem(
+                        child: const Center(
+                          child: Text('Delete from the list'),
                         ),
-                      );
-                    },
-                    valueListenable: Hive.box('cart_box').listenable(),
+                        onTap: () async =>
+                            await Hive.box('cart_box').delete(product.id),
+                      )
+                    ],
+                    offset: Offset(
+                      -(Get.width * 0.10),
+                      -(Get.height * 0.05),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(Get.width * 0.02),
+                      ),
+                    ),
                   )
                 ],
               ),
@@ -115,15 +115,18 @@ class CartItem extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                          onPressed: addProduct,
-                          icon: const Icon(Icons.remove)),
-                      const Text('1'),
+                        onPressed: removeProduct,
+                        icon: const Icon(Icons.remove),
+                      ),
+                      Text('$itemCount'),
                       IconButton(
-                          onPressed: removeProduct, icon: const Icon(Icons.add))
+                        onPressed: addProduct,
+                        icon: const Icon(Icons.add),
+                      )
                     ],
                   ),
-                  SizedBox(width: Get.width * 0.20),
-                  Text('${product.price / 100} \$')
+                  SizedBox(width: Get.width * 0.12),
+                  Text('\$${(product.price * itemCount) / 100}')
                 ],
               )
             ],

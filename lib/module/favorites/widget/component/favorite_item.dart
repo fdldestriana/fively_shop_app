@@ -126,7 +126,8 @@ class FavoriteItem extends StatelessWidget {
           bottom: -Get.height * 0.02,
           child: ReAddToCartButton(
             onTap: () async {
-              await Hive.box('cart_box').put(product.id, product);
+              await Hive.box('cart_box')
+                  .put(product.id, {"product": product, "itemCount": 1});
             },
           ),
         ),
