@@ -54,7 +54,7 @@ class CartItem extends StatelessWidget {
                       Text(
                         product.name,
                         style: GoogleFonts.montserrat(
-                            color: ColorLib.black, fontSize: 16),
+                            color: ColorLib.black, fontSize: 13),
                       ),
                       RichText(
                         text: TextSpan(
@@ -125,7 +125,7 @@ class CartItem extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(width: Get.width * 0.12),
+                  SizedBox(width: Get.width * 0.10),
                   Text('\$${(product.price * itemCount) / 100}')
                 ],
               )

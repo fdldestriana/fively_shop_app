@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class FavoriteItem extends StatelessWidget {
   const FavoriteItem(
@@ -58,7 +59,7 @@ class FavoriteItem extends StatelessWidget {
                             product.name,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.montserrat(
-                                color: ColorLib.black, fontSize: 16),
+                                color: ColorLib.black, fontSize: 13),
                           ),
                           RichText(
                             text: TextSpan(
@@ -124,11 +125,24 @@ class FavoriteItem extends StatelessWidget {
         Positioned(
           right: -Get.width * 0.01,
           bottom: -Get.height * 0.02,
-          child: ReAddToCartButton(
-            onTap: () async {
-              await Hive.box('cart_box')
-                  .put(product.id, {"product": product, "itemCount": 1});
-            },
+          child: ValueListenableBuilder(
+            valueListenable: Hive.box('cart_box').listenable(),
+            builder: (_, value, __) => ReAddToCartButton(
+              onTap: () async {
+                if (value.containsKey(product.id)) {
+                  int index = value.keys.toList().indexOf(product.id);
+
+                  int itemCount = value.values.elementAt(index)['itemCount'];
+                  print('element at $index count $itemCount');
+                  await value.putAt(
+                      index, {"product": product, "itemCount": itemCount + 1});
+                  print('element at $index count $itemCount');
+                  print(value.values);
+                }
+                await Hive.box('cart_box')
+                    .put(product.id, {"product": product, "itemCount": 1});
+              },
+            ),
           ),
         ),
       ],

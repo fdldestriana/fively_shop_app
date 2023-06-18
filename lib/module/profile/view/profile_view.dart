@@ -57,6 +57,11 @@ class ProfileView extends StatefulWidget {
                                   BorderRadius.circular(Get.width * 0.09),
                               child: Image.network(
                                 userData["photoProfile"],
+                                errorBuilder: (_, __, ___) => Container(
+                                  alignment: Alignment.center,
+                                  color: Colors.amber,
+                                  child: const Text("Whoops!"),
+                                ),
                                 width: Get.width * 0.17,
                                 height: Get.height * 0.08,
                               ),

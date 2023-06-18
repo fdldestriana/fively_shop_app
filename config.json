@@ -1,5 +1,4 @@
 {
-    "openai_key": "",
     "modules": [
         "root",
         "home",
@@ -11,5 +10,7 @@
         "favorites",
         "profile",
         "my_orders"
-    ]
+    ],
+    "module_directory_name": "module",
+    "advanced_mode": false
 }
