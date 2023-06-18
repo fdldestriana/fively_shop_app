@@ -2,7 +2,6 @@ import 'package:fively/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class FavoriteItem extends StatelessWidget {
@@ -129,6 +128,14 @@ class FavoriteItem extends StatelessWidget {
             valueListenable: Hive.box('cart_box').listenable(),
             builder: (_, value, __) => ReAddToCartButton(
               onTap: () async {
+                print(value.keys.map((key) {
+                  final item = value.get(key);
+                  return {
+                    'key': key,
+                    "produc": item["product"],
+                    "itemCount": item["itemCount"]
+                  };
+                }).toList());
                 if (value.containsKey(product.id)) {
                   int index = value.keys.toList().indexOf(product.id);
 
