@@ -13,7 +13,6 @@ class FavoriteItem extends StatelessWidget {
 
   final String color;
   final String size;
-
   final Product product;
 
   @override
@@ -124,32 +123,19 @@ class FavoriteItem extends StatelessWidget {
         Positioned(
           right: -Get.width * 0.01,
           bottom: -Get.height * 0.02,
-          child: ValueListenableBuilder(
-            valueListenable: Hive.box('cart_box').listenable(),
-            builder: (_, value, __) => ReAddToCartButton(
-              onTap: () async {
-                print(value.keys.map((key) {
-                  final item = value.get(key);
-                  return {
-                    'key': key,
-                    "produc": item["product"],
-                    "itemCount": item["itemCount"]
-                  };
-                }).toList());
-                if (value.containsKey(product.id)) {
-                  int index = value.keys.toList().indexOf(product.id);
-
-                  int itemCount = value.values.elementAt(index)['itemCount'];
-                  print('element at $index count $itemCount');
-                  await value.putAt(
-                      index, {"product": product, "itemCount": itemCount + 1});
-                  print('element at $index count $itemCount');
-                  print(value.values);
-                }
+          child: ReAddToCartButton(
+            onTap: () async {
+              var carts = Hive.box("cart_box");
+              if (carts.containsKey(product.id)) {
+                int index = carts.keys.toList().indexOf(product.id);
+                int iCount = carts.values.elementAt(index)['itemCount'] + 1;
+                await carts
+                    .put(product.id, {"product": product, "itemCount": iCount});
+              } else {
                 await Hive.box('cart_box')
                     .put(product.id, {"product": product, "itemCount": 1});
-              },
-            ),
+              }
+            },
           ),
         ),
       ],
