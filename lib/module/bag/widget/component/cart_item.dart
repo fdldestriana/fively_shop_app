@@ -40,6 +40,13 @@ class CartItem extends StatelessWidget {
               width: Get.width * 0.24,
               height: Get.height * 0.13,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return SizedBox(
+                  width: Get.width * 0.24,
+                  height: Get.height * 0.13,
+                  child: Text("Whoops!\n${error.toString()}"),
+                );
+              },
             ),
           ),
           SizedBox(width: Get.width * 0.02),
@@ -50,36 +57,39 @@ class CartItem extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          product.name,
-                          overflow: TextOverflow.fade,
-                          style: GoogleFonts.montserrat(
-                              color: ColorLib.black, fontSize: 13),
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            text: 'Color: ',
-                            style: GoogleFonts.montserrat(color: ColorLib.gray),
-                            children: [
-                              TextSpan(
-                                  text: '$color    ',
-                                  style: GoogleFonts.montserrat(
-                                      color: ColorLib.black)),
-                              TextSpan(
-                                  text: 'Size: ',
-                                  style: GoogleFonts.montserrat(
-                                      color: ColorLib.gray)),
-                              TextSpan(
-                                  text: size,
-                                  style: GoogleFonts.montserrat(
-                                      color: ColorLib.black))
-                            ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            product.name,
+                            overflow: TextOverflow.fade,
+                            style: GoogleFonts.montserrat(
+                                color: ColorLib.black, fontSize: 13),
                           ),
-                        )
-                      ],
+                          RichText(
+                            text: TextSpan(
+                              text: 'Color: ',
+                              style:
+                                  GoogleFonts.montserrat(color: ColorLib.gray),
+                              children: [
+                                TextSpan(
+                                    text: '$color    ',
+                                    style: GoogleFonts.montserrat(
+                                        color: ColorLib.black)),
+                                TextSpan(
+                                    text: 'Size: ',
+                                    style: GoogleFonts.montserrat(
+                                        color: ColorLib.gray)),
+                                TextSpan(
+                                    text: size,
+                                    style: GoogleFonts.montserrat(
+                                        color: ColorLib.black))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     SizedBox(width: Get.width * 0.14),
                     PopupMenuButton(

@@ -49,7 +49,7 @@ class LoginView extends StatefulWidget {
                     height: Get.height * 0.02,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: Get.width * 0.42),
+                    padding: EdgeInsets.only(left: Get.width * 0.38),
                     child: TextButton(
                       onPressed: () => Get.to(const ForgotPasswordView()),
                       child: Row(
