@@ -86,36 +86,41 @@ class FavoritesView extends StatefulWidget {
           scrolledUnderElevation: 0.0,
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.only(
-            left: Get.width * 0.04,
-            right: Get.width * 0.04,
-            top: Get.height * 0.02),
-        child: ValueListenableBuilder<String>(
-          valueListenable: controller.dropDown,
-          builder: (context, value, child) {
-            return ValueListenableBuilder(
-              valueListenable: Hive.box('favorites_box').listenable(),
-              builder: (BuildContext context, value, Widget? _) {
-                var products = value.values.toList();
-                if (controller.dropDown.value == "Highest to low") {
-                  products.sort((b, a) => a.price.compareTo(b.price));
-                }
-                return ListView.separated(
-                  itemCount: products.length,
-                  itemBuilder: (context, index) {
-                    return FavoriteItem(
-                      color: 'Black',
-                      product: products[index],
-                      size: 'L',
-                    );
-                  },
-                  separatorBuilder: (context, index) =>
-                      SizedBox(height: Get.height * 0.03),
-                );
-              },
-            );
-          },
+      body: WillPopScope(
+        onWillPop: () async {
+          return Future.value(false);
+        },
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: Get.width * 0.04,
+              right: Get.width * 0.04,
+              top: Get.height * 0.02),
+          child: ValueListenableBuilder<String>(
+            valueListenable: controller.dropDown,
+            builder: (context, value, child) {
+              return ValueListenableBuilder(
+                valueListenable: Hive.box('favorites_box').listenable(),
+                builder: (BuildContext context, value, Widget? _) {
+                  var products = value.values.toList();
+                  if (controller.dropDown.value == "Highest to low") {
+                    products.sort((b, a) => a.price.compareTo(b.price));
+                  }
+                  return ListView.separated(
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      return FavoriteItem(
+                        color: 'Black',
+                        product: products[index],
+                        size: 'L',
+                      );
+                    },
+                    separatorBuilder: (context, index) =>
+                        SizedBox(height: Get.height * 0.03),
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );

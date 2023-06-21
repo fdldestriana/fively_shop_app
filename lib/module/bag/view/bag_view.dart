@@ -82,40 +82,45 @@ class BagView extends StatefulWidget {
         // property below is used to prevent appbar color changing while scrolling the body
         scrolledUnderElevation: 0.0,
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: Get.width * 0.04, vertical: Get.height * 0.02),
-        child: ValueListenableBuilder(
-          builder: (context, value, _) {
-            return ListView.separated(
-              shrinkWrap: true,
-              controller: controller.scrollController,
-              itemCount: value.length,
-              itemBuilder: (context, index) {
-                final product = value.getAt(index)["product"] as Product;
-                var itemCount = value.getAt(index)["itemCount"] as int;
-                return CartItem(
-                  product: product,
-                  color: 'Black',
-                  size: 'L',
-                  addProduct: () async {
-                    value.put(product.id,
-                        {"product": product, "itemCount": itemCount + 1});
-                  },
-                  removeProduct: () async {
-                    if (itemCount > 1) {
+      body: WillPopScope(
+        onWillPop: () async {
+          return Future.value(false);
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: Get.width * 0.04, vertical: Get.height * 0.02),
+          child: ValueListenableBuilder(
+            builder: (context, value, _) {
+              return ListView.separated(
+                shrinkWrap: true,
+                controller: controller.scrollController,
+                itemCount: value.length,
+                itemBuilder: (context, index) {
+                  final product = value.getAt(index)["product"] as Product;
+                  var itemCount = value.getAt(index)["itemCount"] as int;
+                  return CartItem(
+                    product: product,
+                    color: 'Black',
+                    size: 'L',
+                    addProduct: () async {
                       value.put(product.id,
-                          {"product": product, "itemCount": itemCount - 1});
-                    }
-                  },
-                  itemCount: itemCount,
-                );
-              },
-              separatorBuilder: (context, index) =>
-                  SizedBox(height: Get.height * 0.01),
-            );
-          },
-          valueListenable: Hive.box('cart_box').listenable(),
+                          {"product": product, "itemCount": itemCount + 1});
+                    },
+                    removeProduct: () async {
+                      if (itemCount > 1) {
+                        value.put(product.id,
+                            {"product": product, "itemCount": itemCount - 1});
+                      }
+                    },
+                    itemCount: itemCount,
+                  );
+                },
+                separatorBuilder: (context, index) =>
+                    SizedBox(height: Get.height * 0.01),
+              );
+            },
+            valueListenable: Hive.box('cart_box').listenable(),
+          ),
         ),
       ),
       bottomSheet: Visibility(

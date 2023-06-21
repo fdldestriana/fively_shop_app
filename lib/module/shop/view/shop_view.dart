@@ -31,17 +31,22 @@ class ShopView extends StatefulWidget {
         ),
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: Get.width * 0.04, vertical: Get.height * 0.02),
-        child: TabBarView(controller: controller.tabController, children: [
-          CategoryList(
-              categories: controller.categories, images: controller.women),
-          CategoryList(
-              categories: controller.categories, images: controller.men),
-          CategoryList(
-              categories: controller.categories, images: controller.kids),
-        ]),
+      body: WillPopScope(
+        onWillPop: () async {
+          return Future.value(false);
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: Get.width * 0.04, vertical: Get.height * 0.02),
+          child: TabBarView(controller: controller.tabController, children: [
+            CategoryList(
+                categories: controller.categories, images: controller.women),
+            CategoryList(
+                categories: controller.categories, images: controller.men),
+            CategoryList(
+                categories: controller.categories, images: controller.kids),
+          ]),
+        ),
       ),
     );
   }

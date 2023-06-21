@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fively/core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 
 class ProductDetailView extends StatefulWidget {
   const ProductDetailView({Key? key, required this.product}) : super(key: key);
@@ -113,7 +114,18 @@ class ProductDetailView extends StatefulWidget {
         padding: EdgeInsets.symmetric(
             vertical: Get.height * 0.02, horizontal: Get.width * 0.04),
         child: ReButton(
-          onPressed: () {},
+          onPressed: () async {
+            var carts = Hive.box("cart_box");
+            if (carts.containsKey(product.id)) {
+              int index = carts.keys.toList().indexOf(product.id);
+              int iCount = carts.values.elementAt(index)['itemCount'] + 1;
+              await carts
+                  .put(product.id, {"product": product, "itemCount": iCount});
+            } else {
+              await Hive.box('cart_box')
+                  .put(product.id, {"product": product, "itemCount": 1});
+            }
+          },
           width: Get.width * 0.91,
           height: Get.height * 0.06,
           child: Text(
