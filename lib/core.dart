@@ -3,6 +3,7 @@ We believe, the class name must be unique.
 If there is a conflicting class name in this file,
 it means you have to rename it to something more unique.
 */
+export 'package:fively/firebase_options.dart';
 export 'package:fively/model/item_cart/item_cart.dart';
 export 'package:fively/model/product/product.dart';
 export 'package:fively/model/product/product_repository.dart';
@@ -26,6 +27,9 @@ export 'package:fively/module/login/controller/login_controller.dart';
 export 'package:fively/module/login/view/login_view.dart';
 export 'package:fively/module/my_orders/controller/my_orders_controller.dart';
 export 'package:fively/module/my_orders/view/my_orders_view.dart';
+export 'package:fively/module/product_detail/controller/product_detail_controller.dart';
+export 'package:fively/module/product_detail/view/product_detail_view.dart';
+export 'package:fively/module/product_detail/widget/component/re_outlined_box.dart';
 export 'package:fively/module/profile/controller/profile_controller.dart';
 export 'package:fively/module/profile/view/profile_view.dart';
 export 'package:fively/module/profile/widget/component/profile_menu.dart';
@@ -48,7 +52,8 @@ export 'package:fively/shared/widget/re_name_field.dart';
 export 'package:fively/shared/widget/re_password_field.dart';
 export 'package:fively/shared/widget/re_photo_picker.dart';
 export 'package:fively/shared/widget/re_viewall_button.dart';
-export 'state_util.dart';
+export 'package:fively/state_util.dart';
 export 'package:fively/utils/color_lib.dart';
 export 'package:fively/utils/failure.dart';
 export 'package:fively/utils/function/show_error_dialog.dart';
+export 'package:fively/utils/validator/validator.dart';

@@ -9,7 +9,8 @@
         "bag",
         "favorites",
         "profile",
-        "my_orders"
+        "my_orders",
+        "product_detail"
     ],
     "module_directory_name": "module",
     "experimental_mode": false,

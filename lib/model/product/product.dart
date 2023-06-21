@@ -20,15 +20,16 @@ class Product {
   @HiveField(7)
   final String id;
 
-  Product(
-      {required this.brand,
-      required this.creationDate,
-      required this.favorites,
-      required this.image,
-      required this.name,
-      required this.popular,
-      required this.price,
-      required this.id});
+  Product({
+    required this.brand,
+    required this.creationDate,
+    required this.favorites,
+    required this.image,
+    required this.name,
+    required this.popular,
+    required this.price,
+    required this.id,
+  });
 
   static final empty = Product(
       brand: '',
